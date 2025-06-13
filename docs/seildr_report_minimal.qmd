@@ -1,0 +1,211 @@
+---
+title: "SEILDR Modeling — Minimal Seeding Scenario"
+author: "Julen Gamboa"
+date: "June 2025"
+format: pdf
+---
+
+# Epidemiological Analysis under Minimal Seeding
+
+This report summarizes SEILDR stochastic model outcomes using **minimal initial seeding conditions**:
+
+- **Initial infectious individuals:** 2  
+- **Initial latent carriers:** 10  
+- **Mortality rates tested:** 0.1 to 0.8  
+- **Extinction threshold:** 20 cumulative deaths
+
+We compare three management scenarios:
+
+- **do_nothing**: no interventions (no isolation, biosecurity, or testing applied).
+- **isolation_only**: infectious individuals isolated upon clinical detection.
+- **isolation_biosecurity**: combines isolation with improved cross-aviary biosecurity.
+
+---
+
+# 1. Infectious Seeding Heatmaps (Latent = 10)
+
+## `do_nothing`
+
+![](../results/summaries/heatmaps/infectious/do_nothing_l10_heatmap_infectious.png)
+
+- Rapid rise in cumulative deaths with increasing mortality.
+- Limited buffering effect at low infectious seeding due to no interventions.
+- Even small mortality increases lead to sharp elevation in final deaths.
+
+---
+
+## `isolation_biosecurity`
+
+![](../results/summaries/heatmaps/infectious/isolation_biosecurity_l10_heatmap_infectious.png)
+
+- Substantial mitigation across entire mortality range.
+- Cumulative deaths remain <35 even at extreme mortality values.
+- Biosecurity acts synergistically with isolation to prevent amplification.
+
+---
+
+## `isolation_only`
+
+![](../results/summaries/heatmaps/infectious/isolation_only_l10_heatmap_infectious.png)
+
+- Intermediate control relative to full biosecurity.
+- Steady reduction but still progressive deaths at high mortality rates.
+- Isolation alone insufficient to fully contain aggressive mortality strains.
+
+---
+
+# 2. Latent Seeding Heatmaps (Infectious = 2)
+
+## `do_nothing`
+
+![](../results/summaries/heatmaps/latent/do_nothing_i2_heatmap_latent.png)
+
+- Strong influence of latent seeding magnitude.
+- High latent loads push final deaths toward maximal outbreak levels.
+- With minimal infectious seeding, latent pool still dominates long-term risk.
+
+---
+
+## `isolation_biosecurity`
+
+![](../results/summaries/heatmaps/latent/isolation_biosecurity_i2_heatmap_latent.png)
+
+- Superior flattening across all latent load levels.
+- High resilience to latent carrier introduction.
+- Deaths remain well-controlled (<40) even under worst case.
+
+---
+
+## `isolation_only`
+
+![](../results/summaries/heatmaps/latent/isolation_only_i2_heatmap_latent.png)
+
+- Partial buffering.
+- Moderate rise in cumulative deaths with increasing latent carriers.
+- Still considerable amplification at higher latent values.
+
+---
+
+# 3. Stability Maps (Variance Heatmaps)
+
+## `do_nothing`
+
+![](../results/summaries/stability/do_nothing_i2_stability_map.png)
+
+- Variance rises with both mortality and latent load.
+- Unstable zones appear as mortality exceeds 0.5.
+- No intervention leads to highly sensitive outbreak equilibrium.
+
+---
+
+## `isolation_biosecurity`
+
+![](../results/summaries/stability/isolation_biosecurity_i2_stability_map.png)
+
+- Stability is greatly improved.
+- Variance remains low throughout full parameter grid.
+- Management produces highly predictable epidemic outcomes.
+
+---
+
+## `isolation_only`
+
+![](../results/summaries/stability/isolation_only_i2_stability_map.png)
+
+- Intermediate variance profiles.
+- Some volatility at upper mortality and latent levels.
+- Isolation reduces variability but fails to fully stabilize dynamics.
+
+---
+
+# 4. Extinction Maps (All scenarios, threshold = 20)
+
+## `do_nothing`
+
+![](../results/summaries/thresholds/do_nothing_extinction_map.png)
+
+- Extinction unlikely at mortality above 0.2.
+- Full epidemic amplification dominates parameter space.
+
+## `isolation_biosecurity`
+
+![](../results/summaries/thresholds/isolation_biosecurity_extinction_map.png)
+
+- Large extinction-safe zone extending into intermediate mortality values.
+- Improved cross-aviary control significantly shifts outbreak threshold.
+
+## `isolation_only`
+
+![](../results/summaries/thresholds/isolation_only_extinction_map.png)
+
+- Modest extinction expansion relative to do_nothing.
+- Limited extinction capacity above mortality 0.3.
+- Isolation alone insufficient for aggressive viral strains.
+
+---
+
+#  Biological Interpretation
+
+- Even minimal initial seeding can generate substantial outbreaks depending on mortality and latent pool size.
+- Reactivation dynamics remain critical amplifiers in stochastic simulations, even though it is set at a very low rate (0.00027)
+- Biosecurity interventions consistently offer stronger suppression than isolation alone.
+- Threshold and stability maps highlight highly non-linear tipping points near mortality 0.3–0.5.
+- Management decisions targeting latent pool reduction and cross-aviary transmission have strongest payoff.
+
+---
+## Reactivation Rate Interpretation
+
+The parameter used for daily reactivation probability per latent carrier is:
+
+$$
+P_{\text{reactivation daily}} = 0.00027
+$$
+
+### Annualized Expectation
+
+Since this is a Bernoulli process repeated daily, the expected number of reactivations per bird per year (365 days) is approximately:
+
+$$
+E_{\text{yearly}} = 365 \times 0.00027 \approx 0.0985
+$$
+
+### Interpretation
+
+- Each latent bird has about a **9.85% chance** of reactivating in any given year.
+- Or said differently:
+  - On average, about **1 reactivation event every 10 years per bird**.
+- This is substantially lower than **1 reactivation per bird per year**, which would correspond to:
+
+$$
+P_{\text{reactivation daily}} \approx \frac{1}{365} \approx 0.00274
+$$
+
+### Summary Table
+
+| Reactivation Daily Rate | Annual Probability | Interpretation |
+|-------------------------|--------------------|----------------|
+| 0.00027 | ~9.85% per year | 1 event every ~10 years |
+| 0.00274 | ~63% per year | ~1 event per year |
+
+
+### Biological Reality
+
+The chosen value ($0.00027$) is biologically reasonable if assuming:
+
+- Chronic latency is generally stable.
+- Reactivation is rare, often triggered by major stressors or immunosuppression.
+- Parrots may remain latently infected for many years without reactivation.
+
+This is consistent with long-term latency models in herpesviruses, where reactivation can occur unpredictably and infrequently over the host's lifespan.
+
+---
+
+# Reproducibility
+
+These results are fully generated from the public `seildr_model` pipeline using the `batch_scenario_runner.py` → `aggregate_results.py` → `multi_panel_analytics.py` workflow.
+
+Source data lives in:
+
+```bash
+results/summaries/
+```

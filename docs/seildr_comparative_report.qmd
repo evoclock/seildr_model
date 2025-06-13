@@ -1,0 +1,292 @@
+---
+title: "Pacheco’s Disease Management Simulation — SEILDR Comparative Scenarios"
+author: "Julen Gamboa"
+date: "June 2025"
+format: pdf
+bibliography: references.bib 
+---
+
+# Executive Summary
+
+This report summarizes comparative scenario outcomes using the SEILDR stochastic transmission model for Pacheco's disease in captive parrot populations.  
+We evaluate **two distinct seeding conditions**:
+
+- **Intermediate seeding:** 10 infectious + 30 latent carriers  
+- **Minimal seeding:** 2 infectious + 10 latent carriers
+
+We examine transmission, mortality risk, extinction thresholds and stability across:
+
+- **Management Scenarios:**
+  - `do_nothing` — No interventions (no testing, isolation, or strict biosecurity).
+  - `isolation_only` — Isolation of symptomatic birds only.
+  - `isolation_biosecurity` — Isolation plus enhanced biosecurity.
+
+It is entirely possible that some unexplored combination of parameters better explains a given scenario. 480 combinations of parameters were tested in all and aggregated to produce results. More combinations are possible particularly to reflect variable between and within aviary transmission.
+
+---
+
+## 1 — Infectious Seeding Heatmaps (Latent Fixed)
+
+## Intermediate Seeding: Latent = 30
+
+### `do_nothing`
+
+![](../results/summaries/heatmaps/infectious/do_nothing_l30_heatmap_infectious.png)
+
+### `isolation_only`
+
+![](../results/summaries/heatmaps/infectious/isolation_only_l30_heatmap_infectious.png)
+
+### `isolation_biosecurity`
+
+![](../results/summaries/heatmaps/infectious/isolation_biosecurity_l30_heatmap_infectious.png)
+
+---
+
+## Minimal Seeding: Latent = 10
+
+### `do_nothing`
+
+![](../results/summaries/heatmaps/infectious/do_nothing_l10_heatmap_infectious.png)
+
+### `isolation_only`
+
+![](../results/summaries/heatmaps/infectious/isolation_only_l10_heatmap_infectious.png)
+
+### `isolation_biosecurity`
+
+![](../results/summaries/heatmaps/infectious/isolation_biosecurity_l10_heatmap_infectious.png)
+
+---
+
+**Key Observations Across Seeding Levels:**
+
+- Higher infectious seeding accelerates mortality-driven escalation.
+- Biosecurity strongly flattens both scenarios but especially effective in minimal seeding.
+- `do_nothing` remains extremely vulnerable in both cases.
+
+---
+
+## 2 — Latent Seeding Heatmaps (Infectious Fixed)
+
+## Intermediate Seeding: Infectious = 10
+
+### `do_nothing`
+
+![](../results/summaries/heatmaps/latent/do_nothing_i10_heatmap_latent.png)
+
+### `isolation_only`
+
+![](../results/summaries/heatmaps/latent/isolation_only_i10_heatmap_latent.png)
+
+### `isolation_biosecurity`
+
+![](../results/summaries/heatmaps/latent/isolation_biosecurity_i10_heatmap_latent.png)
+
+---
+
+## Minimal Seeding: Infectious = 2
+
+### `do_nothing`
+
+![](../results/summaries/heatmaps/latent/do_nothing_i2_heatmap_latent.png)
+
+### `isolation_only`
+
+![](../results/summaries/heatmaps/latent/isolation_only_i2_heatmap_latent.png)
+
+### `isolation_biosecurity`
+
+![](../results/summaries/heatmaps/latent/isolation_biosecurity_i2_heatmap_latent.png)
+
+---
+
+**Key Observations:**
+
+- Latent carrier pool acts as a long-term amplifier regardless of initial infectious load.
+- Minimal latent pools substantially reduce outbreak size under interventions.
+- `isolation_biosecurity` always creates broad protective plateaus.
+
+---
+
+## 3 — Stability Maps
+
+Variance heatmaps showing stochasticity across replicates.
+
+## Intermediate Seeding (i=10)
+
+### `do_nothing`
+
+![](../results/summaries/stability/do_nothing_i10_stability_map.png)
+
+### `isolation_only`
+
+![](../results/summaries/stability/isolation_only_i10_stability_map.png)
+
+### `isolation_biosecurity`
+
+![](../results/summaries/stability/isolation_biosecurity_i10_stability_map.png)
+
+---
+
+## Minimal Seeding (i=2)
+
+### `do_nothing`
+
+![](../results/summaries/stability/do_nothing_i2_stability_map.png)
+
+### `isolation_only`
+
+![](../results/summaries/stability/isolation_only_i2_stability_map.png)
+
+### `isolation_biosecurity`
+
+![](../results/summaries/stability/isolation_biosecurity_i2_stability_map.png)
+
+---
+
+**Key Observations:**
+
+- Minimal seeding yields much more predictable outcomes (lower variance).
+- However, stochasticity still rises rapidly without intervention when mortality exceeds 0.3.
+- Biosecurity consistently suppresses variance across parameter space.
+
+---
+
+## 4 — Extinction Threshold Maps
+
+Extinction threshold set at ≤20 deaths within 3 years. 
+1 = infections resolve and stabilise without causing an outbreak. 0 = infections can lead to unresolved and uncontrolled outbreaks 
+
+_(identical across both scenarios for comparability)_
+
+### `do_nothing`
+
+![](../results/summaries/thresholds/do_nothing_extinction_map.png)
+
+### `isolation_only`
+
+![](../results/summaries/thresholds/isolation_only_extinction_map.png)
+
+### `isolation_biosecurity`
+
+![](../results/summaries/thresholds/isolation_biosecurity_extinction_map.png)
+
+---
+
+## 5 — Management Implications Summary
+
+| Scenario            | Stability | Extinction Range | Maximum Deaths (Intermediate) | Maximum Deaths (Minimal) |
+|---------------------|-----------|------------------|------------------------------|--------------------------|
+| `do_nothing`         | High stochasticity | Narrow | 60–90 deaths | 30–50 deaths |
+| `isolation_only`     | Moderate control | Modest expansion | 50–80 deaths | 20–40 deaths |
+| `isolation_bio` | Strong control | Broad extinction buffer | 30–60 deaths | 10–20 deaths |
+
+- Even minimal initial seeding can generate substantial outbreaks depending on mortality and latent pool size.
+- Reactivation dynamics remain critical amplifiers in stochastic simulations, even though it is set at a very low rate (0.00027)
+- Biosecurity interventions consistently offer stronger suppression than isolation alone.
+- Threshold and stability maps highlight highly non-linear tipping points near mortality 0.3–0.5.
+- Management decisions targeting latent pool reduction and cross-aviary transmission have strongest payoff.
+
+---
+
+## 6 — Reactivation Rate Interpretation
+
+The model assumes a low daily reactivation probability:
+
+$$
+P_{\text{reactivation daily}} = 0.00027
+$$
+
+Annualised expectation:
+
+$$
+E_{\text{yearly}} = 365 \times 0.00027 \approx 0.0985
+$$
+
+This corresponds to ~9.85% chance of reactivation per year, or ~1 reactivation every 10 years per bird.
+
+Comparative values:
+
+| Reactivation Daily Rate | Annual Probability | Interpretation |
+|-------------------------|--------------------|----------------|
+| 0.00027 | ~9.85% per year | 1 event every ~10 years |
+| 0.00274 | ~63% per year | ~1 event per year |
+
+Biological assumptions:
+
+The chosen value ($0.00027$) is biologically reasonable if assuming:
+
+- Chronic latency is generally stable long-term.
+- Reactivation is rare, often triggered by major stressors or immunosuppression.
+- Parrots may remain latently infected for many years without reactivation.
+
+This is consistent with long-term latency models in herpesviruses, where reactivation can occur unpredictably and infrequently over the host's lifespan. 
+
+---
+
+# Virological Background — PsHV Genotypes, Latency, and Management Implications
+
+## Genotype-Specific Pathogenicity
+
+Pacheco's disease is associated with several genotypes of *Psittacid herpesvirus 1* (PsHV-1), with differences in pathogenicity depending on host species and viral genotype:
+
+- **Genotype 4** has been shown to cause disease in macaws, conures, Amazons, and African grey parrots.
+- **Genotype 3** appears to carry lower pathogenic potential in these species.
+- **Genotypes 1 and 2** may not induce Pacheco’s disease in macaws, conures, or African greys under most conditions.
+- To date, no fatalities in African grey parrots have been directly attributed to PsHV-1 genotype 1 infections [@tomaszewski2003; @tomaszewski2006].
+
+## Latency and Shedding Risk
+
+Herpesviruses in parrots typically establish lifelong latent infections that may remain clinically silent for extended periods. However, several features of PsHV latency are relevant for long-term management:
+
+- Latently infected parrots carrying genotypes 1, 2, or 3 may later develop mucosal papillomas of the digestive tract which are infective in nature.
+- Intermittent or low-level viral shedding occurs even in the absence of clinical signs.
+- Such latent carriers may continue to serve as reservoirs for virus transmission to naïve individuals and can contribute to either future Pacheco outbreaks or papilloma development.
+- Shedding is not strictly limited to visibly sick or acutely infected birds, which may limit the effectiveness of purely symptom-based monitoring strategies [@tomaszewski2006].
+
+## Transmission Observations in Aviary Conditions
+
+Longitudinal monitoring at the Schubot Exotic Bird Health Center at Texas A&M University offers valuable insights into transmission dynamics under controlled aviary management:
+
+- Over a multi-year observation period, new infections were infrequent but not entirely absent despite 9 known individuals being positive for PsHV-1. In one instance, a sun conure acquired infection from an adjacent conure sharing the same viral genotype.
+- These findings suggest that although transmission may occur at low frequency under good management (the strong biosecurity protocols at the Schubot Center more specifically), sporadic spread is still possible via latent shedding and close proximity housing [@tomaszewski2006].
+
+## Seroprevalence in Captive Populations
+
+Surveillance studies have identified background levels of PsHV exposure even in clinically stable aviaries:
+
+- In a European survey, PsHV-1 seropositivity was observed in approximately 37% of tested parrots across 7 aviaries.
+- Six out of the seven surveyed aviaries had at least one seropositive bird, suggesting that subclinical viral presence may be widespread in managed flocks [@tomaszewski2006].
+
+## Implications for Preventive Management
+
+Taken together, these findings highlight that:
+
+- Testing, biosecurity, and managed isolation protocols remain prudent measures even in apparently healthy collections.
+- Routine clinical health assessments may not reliably detect latently infected individuals.
+- Introducing new birds from diverse sources may elevate the long-term risk of both acute outbreaks and genotype mixing.
+- Effective immunization would require a polyvalent vaccine capable of covering multiple PsHV-1 genotypes, given that co-infections involving several genotypes have been observed. The previously available commercial vaccine was monovalent, which may have limited its capacity to provide broad protection [@tomaszewski2006].
+
+# References
+
+- <a name="tomaszewski2003"></a>Tomaszewski EK, Kaleta EF, Phalen DN. *Molecular Phylogeny of the Psittacid Herpesviruses Causing Pacheco’s Disease: Correlation of Genotype with Phenotypic Expression.* Journal of Virology. 2003;77(20):11260–11267. DOI:10.1128/JVI.77.20.11260-11267.2003.
+- <a name="tomaszewski2006"></a>Tomaszewski EK, Wigle W, Phalen DN. *Tissue Distribution of Psittacid Herpesviruses in Latently Infected Parrots, Repeated Sampling of Latently Infected Parrots and Prevalence of Latency in Parrots Submitted for Necropsy.* Journal of Veterinary Diagnostic Investigation. 2006;18:536–544.
+
+
+---
+
+# Reproducibility
+
+All outputs generated using:
+
+```bash
+python generate_scenarios_csv.py
+python batch_scenario_runner.py
+python aggregate_results.py
+python multi_panel_analytics.py
+```
+
+Model: `seildr_model (public release)`
+
+Outputs located under: `results/summaries/`

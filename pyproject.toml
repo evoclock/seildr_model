@@ -1,0 +1,30 @@
+[project]
+name = "seildr-sim"
+version = "0.1.0"
+description = "Stochastic SEILDR simulation model of avian herpesvirus transmission and management in a large private collection"
+authors = [{ name = "Julen Gamboa", email = "julen.a.gamboa@gmail.com" }]
+license = "MIT"
+dependencies = [
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "seaborn",
+    "tqdm",
+    "streamlit",
+    "pymc",
+    "arviz"
+]
+
+[build-system]
+requires = ["setuptools>=67.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["seildr_sim"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+seildr_sim = ["scenarios/*.csv"]
+
+
