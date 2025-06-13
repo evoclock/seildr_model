@@ -283,6 +283,10 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
+For scientific use, please cite:
+
+Gamboa J. SEILDR: Stochastic modeling of Pacheco's Disease transmission and management in closed parrot populations. 2025. Github Repository: https://github.com/evoclock/seildr_model
+
 ##  Full Example Report
 
 A complete demonstration of the model output is available here:
