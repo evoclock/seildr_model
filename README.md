@@ -136,15 +136,8 @@ Purpose:
 - Allow management comparison of biosecurity scenarios.
 - Reveal nonlinear tipping-points in outbreak dynamics.
 
-### 2. Rankings
-- Top 10 best parameter combinations minimizing deaths.
 
-Purpose: 
-- Management target identification.
-- Highlight parameter combinations producing lowest death burdens.
-- Identify optimal zones for management focus.
-
-### 3. Threshold maps
+### 2. Threshold maps
 Classify parameter regions into:
   - Extinction zones (outbreak dies out)
   - Outbreak zones (persistent epidemic risk)
@@ -152,14 +145,14 @@ Classify parameter regions into:
 - Classify whether extinction or outbreak occurs at each parameter combination.
 - Binary extinction defined by configurable death threshold.
 
-### 4. Stability maps
+### 3. Stability maps
 - Heatmaps of standard deviation across replicates.
 - High variance indicates sensitive outbreak thresholds and unstable equilibrium zones.
 
 Purpose: 
 - locate high-variance regions where management outcome is highly sensitive to stochastic noise.
 
-### 5. Time series (optional)
+### 4. Time series (optional)
 - Individual cumulative death curves per scenario replicate.
 
 ---
